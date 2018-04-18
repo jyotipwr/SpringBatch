@@ -1,0 +1,10 @@
+com\poc\batch\SpringBootBatchPoc\model\Person.class
+com\poc\batch\SpringBootBatchPoc\config\DataSourceInitializer.class
+com\poc\batch\SpringBootBatchPoc\listener\JobCompletionNotificationListener.class
+com\poc\batch\SpringBootBatchPoc\config\BatchConfiguration$1$2.class
+com\poc\batch\SpringBootBatchPoc\processor\PersonItemProcessor.class
+com\poc\batch\SpringBootBatchPoc\config\BatchConfiguration$1$1.class
+com\poc\batch\SpringBootBatchPoc\config\BatchConfiguration$1.class
+com\poc\batch\SpringBootBatchPoc\listener\JobCompletionNotificationListener$1.class
+com\poc\batch\SpringBootBatchPoc\config\BatchConfiguration.class
+com\poc\batch\SpringBootBatchPoc\SpringBootBatchProjectApplication.class
