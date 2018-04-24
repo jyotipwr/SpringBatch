@@ -1,24 +1,27 @@
 package com.poc.batch.SpringBootBatchPoc.config;
 
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.poc.batch.SpringBootBatchPoc.dao.PersonDao;
 import com.poc.batch.SpringBootBatchPoc.listener.JobCompletionNotificationListener;
 import com.poc.batch.SpringBootBatchPoc.model.Person;
+import com.poc.batch.SpringBootBatchPoc.model.ProjectData;
 import com.poc.batch.SpringBootBatchPoc.step.Processor;
 import com.poc.batch.SpringBootBatchPoc.step.Reader;
 import com.poc.batch.SpringBootBatchPoc.step.Writer;
 
 @Configuration
-@EnableBatchProcessing
 public class BatchConfiguration {
 
 	@Autowired
@@ -29,6 +32,25 @@ public class BatchConfiguration {
 
 	@Autowired
 	public PersonDao personDao;
+	
+	@Autowired
+	private JobLauncher jobLauncher;
+
+	@Autowired
+	private Job job;
+	
+	@Scheduled(fixedRate = 600000)
+	public void printMessage() {
+		try {
+			System.err.println("I have started schedular ");
+			JobParameters jobParameters = new JobParametersBuilder().addLong(
+					"time", System.currentTimeMillis()).toJobParameters();
+			jobLauncher.run(job, jobParameters);
+			System.err.println("I have been scheduled with Spring scheduler");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Bean
 	public Job job() {
@@ -38,21 +60,10 @@ public class BatchConfiguration {
  
 	@Bean
 	public Step step1() {
-		return stepBuilderFactory.get("step1").<Person, Person>chunk(500)
+		return stepBuilderFactory.get("step1").<ProjectData, ProjectData>chunk(500)
 				.reader(Reader.reader("persons.csv"))
 				.processor(new Processor()).writer(new Writer(personDao)).build();
 	}
 
 
-	/*@Bean
-	public Job importUserJob(JobCompletionNotificationListener listener) {
-		return jobBuilderFactory.get("importUserJob").incrementer(new RunIdIncrementer()).listener(listener)
-				.flow(step1()).end().build();
-	}
-
-	@Bean
-	public Step step1() {
-		return stepBuilderFactory.get("step1").<Person, Person>chunk(1000).reader(reader()).processor(processor())
-				.writer(writer()).build();
-	}*/
 }

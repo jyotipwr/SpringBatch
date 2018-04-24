@@ -18,14 +18,12 @@ public class Writer implements ItemWriter<Person> {
 	@Override
 	public void write(List<? extends Person> persons) throws Exception {
 		for (Person person : persons) {
-			//System.err.println(person.getInsertFlag());
 			if (person.getInsertFlag() == 1) {
 				personDao.insert(person);
 			} else {
 				personDao.update(person);
 			}
 		}
-		// personDao.insert(persons);
 	}
 
 }

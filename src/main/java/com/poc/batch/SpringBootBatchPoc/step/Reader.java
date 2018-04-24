@@ -6,23 +6,25 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.core.io.ClassPathResource;
 
-import com.poc.batch.SpringBootBatchPoc.model.Person;
+import com.poc.batch.SpringBootBatchPoc.model.ProjectData;
 
 public class Reader {
-	public static FlatFileItemReader<Person> reader(String path) {
-		FlatFileItemReader<Person> reader = new FlatFileItemReader<Person>();
- 
+	public static FlatFileItemReader<ProjectData> reader(String path) {
+		FlatFileItemReader<ProjectData> reader = new FlatFileItemReader<ProjectData>();
+
 		reader.setResource(new ClassPathResource(path));
-		reader.setLineMapper(new DefaultLineMapper<Person>() {
+
+		reader.setLineMapper(new DefaultLineMapper<ProjectData>() {
 			{
 				setLineTokenizer(new DelimitedLineTokenizer() {
 					{
-						setNames(new String[] { "firstName", "lastName", "email", "age", "insertFlag" });
+						setNames(new String[] { "projectNumber","projectDescription","projectType","projectCategory","platform",
+								"projectGate","status","projectStartDate","projectEndDate","projectCreationDate","projectModificationDate","newProject"  });
 					}
 				});
-				setFieldSetMapper(new BeanWrapperFieldSetMapper<Person>() {
+				setFieldSetMapper(new BeanWrapperFieldSetMapper<ProjectData>() {
 					{
-						setTargetType(Person.class);
+						setTargetType(ProjectData.class);
 					}
 				});
 			}
