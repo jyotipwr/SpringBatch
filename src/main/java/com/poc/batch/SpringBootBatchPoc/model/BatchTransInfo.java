@@ -10,17 +10,6 @@ public class BatchTransInfo {
 	private Date endDate;
 	private String errorMessage;
 
-	public BatchTransInfo(Integer batchId, String fileName, String status, Date startDate, Date endDate,
-			String errorMessage) {
-		super();
-		this.batchId = batchId;
-		this.fileName = fileName;
-		this.status = status;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.errorMessage = errorMessage;
-	}
-
 	public Integer getBatchId() {
 		return batchId;
 	}

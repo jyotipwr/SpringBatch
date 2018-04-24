@@ -11,6 +11,7 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.poc.batch.SpringBootBatchPoc.dao.PersonDao;
@@ -39,6 +40,9 @@ public class BatchConfiguration {
 	@Autowired
 	private Job job;
 	
+	@Autowired
+	private Environment env;
+	
 	@Scheduled(fixedRate = 600000)
 	public void printMessage() {
 		try {
@@ -61,7 +65,7 @@ public class BatchConfiguration {
 	@Bean
 	public Step step1() {
 		return stepBuilderFactory.get("step1").<ProjectData, ProjectData>chunk(500)
-				.reader(Reader.reader("persons.csv"))
+				.reader(Reader.reader(env.getProperty("file.name")))
 				.processor(new Processor()).writer(new Writer(personDao)).build();
 	}
 
