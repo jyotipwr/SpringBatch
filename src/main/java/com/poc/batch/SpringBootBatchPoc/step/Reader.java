@@ -18,8 +18,8 @@ public class Reader {
 		try {
 			batchInfo.setFileName(path);
 			batchInfo.setStatus("In Progress");
-			batchInfo=batchTransInfoDao.insert(batchInfo);
-
+			batchInfo = batchTransInfoDao.insert(batchInfo);
+			String batchId = batchInfo.getBatchId().toString();
 			reader.setResource(new ClassPathResource(path));
 
 			reader.setLineMapper(new DefaultLineMapper<ProjectData>() {
@@ -28,7 +28,8 @@ public class Reader {
 						{
 							setNames(new String[] { "projectNumber", "projectDescription", "projectType",
 									"projectCategory", "platform", "projectGate", "status", "projectStartDate",
-									"projectEndDate", "projectCreationDate", "projectModificationDate", "newProject" });
+									"projectEndDate", "projectCreationDate", "projectModificationDate", "newProject",
+									batchId });
 						}
 					});
 					setFieldSetMapper(new BeanWrapperFieldSetMapper<ProjectData>() {

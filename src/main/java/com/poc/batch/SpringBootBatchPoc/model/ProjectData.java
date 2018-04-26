@@ -13,10 +13,11 @@ public class ProjectData {
 	private String projectCreationDate;
 	private String projectModificationDate;
 	private String newProject;
+	private String batchId;
 
 	public ProjectData(String projectNumber, String projectDescription, String projectType, String projectCategory,
 			String platform, String projectGate, String status, String projectStartDate, String projectEndDate,
-			String projectCreationDate, String projectModificationDate, String newProject) {
+			String projectCreationDate, String projectModificationDate, String newProject, String batchId) {
 		super();
 		this.projectNumber = projectNumber;
 		this.projectDescription = projectDescription;
@@ -30,6 +31,15 @@ public class ProjectData {
 		this.projectCreationDate = projectCreationDate;
 		this.projectModificationDate = projectModificationDate;
 		this.newProject = newProject;
+		this.batchId = batchId;
+	}
+
+	public String getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(String batchId) {
+		this.batchId = batchId;
 	}
 
 	public String getProjectNumber() {

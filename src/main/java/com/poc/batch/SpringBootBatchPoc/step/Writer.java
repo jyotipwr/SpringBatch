@@ -4,25 +4,25 @@ import java.util.List;
 
 import org.springframework.batch.item.ItemWriter;
 
-import com.poc.batch.SpringBootBatchPoc.dao.PersonDao;
-import com.poc.batch.SpringBootBatchPoc.model.Person;
+import com.poc.batch.SpringBootBatchPoc.dao.WpdProjectDao;
+import com.poc.batch.SpringBootBatchPoc.model.WpdProject;
 
-public class Writer implements ItemWriter<Person> {
+public class Writer implements ItemWriter<WpdProject> {
 
-	private final PersonDao personDao;
+	private final WpdProjectDao wpdProjectDao;
 
-	public Writer(PersonDao personDao) {
-		this.personDao = personDao;
+	public Writer(WpdProjectDao wpdProjectDao) {
+		this.wpdProjectDao = wpdProjectDao;
 	}
 
 	@Override
-	public void write(List<? extends Person> persons) throws Exception {
-		for (Person person : persons) {
-			if (person.getInsertFlag() == 1) {
+	public void write(List<? extends WpdProject> projects) throws Exception {
+		for (WpdProject project : projects) {
+			/*if (person.getInsertFlag() == 1) {
 				personDao.insert(person);
 			} else {
 				personDao.update(person);
-			}
+			}*/
 		}
 	}
 

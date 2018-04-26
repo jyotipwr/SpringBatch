@@ -15,7 +15,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.mysql.fabric.xmlrpc.base.Data;
 import com.mysql.jdbc.Statement;
 import com.poc.batch.SpringBootBatchPoc.model.BatchTransInfo;
 
@@ -40,7 +39,7 @@ public class BatchTransInfoDaoImpl extends JdbcDaoSupport implements BatchTransI
 				PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				ps.setString(1, batchInfo.getFileName());
 				ps.setString(2, batchInfo.getStatus());
-				ps.setString(3, new Data().toString());
+				ps.setString(3, new Date().toString());
 				return ps;
 			}
 		}, holder);

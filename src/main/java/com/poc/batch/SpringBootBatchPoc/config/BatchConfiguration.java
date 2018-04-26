@@ -14,9 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.poc.batch.SpringBootBatchPoc.dao.PersonDao;
+import com.poc.batch.SpringBootBatchPoc.dao.BatchTransInfoDao;
 import com.poc.batch.SpringBootBatchPoc.listener.JobCompletionNotificationListener;
-import com.poc.batch.SpringBootBatchPoc.model.Person;
 import com.poc.batch.SpringBootBatchPoc.model.ProjectData;
 import com.poc.batch.SpringBootBatchPoc.step.Processor;
 import com.poc.batch.SpringBootBatchPoc.step.Reader;
@@ -31,8 +30,9 @@ public class BatchConfiguration {
 	@Autowired
 	public StepBuilderFactory stepBuilderFactory;
 
+	
 	@Autowired
-	public PersonDao personDao;
+	public BatchTransInfoDao batchTransInfoDao;
 	
 	@Autowired
 	private JobLauncher jobLauncher;
@@ -43,7 +43,7 @@ public class BatchConfiguration {
 	@Autowired
 	private Environment env;
 	
-	@Scheduled(fixedRate = 600000)
+	//@Scheduled(fixedRate = 600000)
 	public void printMessage() {
 		try {
 			System.err.println("I have started schedular ");
@@ -58,14 +58,14 @@ public class BatchConfiguration {
 
 	@Bean
 	public Job job() {
-		return jobBuilderFactory.get("job").incrementer(new RunIdIncrementer()).listener(new JobCompletionNotificationListener(personDao))
+		return jobBuilderFactory.get("job").incrementer(new RunIdIncrementer()).listener(new JobCompletionNotificationListener())
 				.flow(step1()).end().build();
 	}
  
 	@Bean
 	public Step step1() {
-		return stepBuilderFactory.get("step1").<ProjectData, ProjectData>chunk(500)
-				.reader(Reader.reader(env.getProperty("file.name")))
+		return stepBuilderFactory.get("step1").<ProjectData, ProjectData>chunk(5)
+				.reader(Reader.reader(env.getProperty("file.name"),batchTransInfoDao))
 				.processor(new Processor()).writer(new Writer(personDao)).build();
 	}
 

@@ -1,29 +1,26 @@
 package com.poc.batch.SpringBootBatchPoc.model;
 
-import java.util.Date;
-
 public class PpmProjectInfo {
 	private Integer id;
 	private Integer batchId;
 	private String status;
 	private String errorMessage;
 	private String projectType;
-	private Integer projectNumber;
-	private Integer projectTitle;
+	private String projectNumber;
+	private String projectTitle;
 	private String projectDescription;
 	private String projectCategory;
 	private String platform;
 	private String projectGate;
-	private Date projectStartDate;
-	private Date projectEndDate;
+	private String projectStartDate;
+	private String projectEndDate;
 
-	public PpmProjectInfo(Integer batchId, String status, String errorMessage, String projectType,
-			Integer projectNumber, Integer projectTitle, String projectDescription, String projectCategory,
-			String platform, String projectGate, Date projectStartDate, Date projectEndDate) {
+	public PpmProjectInfo(Integer batchId, String status, String projectType, String projectNumber,
+			String projectTitle, String projectDescription, String projectCategory, String platform, String projectGate,
+			String projectStartDate, String projectEndDate) {
 		super();
 		this.batchId = batchId;
 		this.status = status;
-		this.errorMessage = errorMessage;
 		this.projectType = projectType;
 		this.projectNumber = projectNumber;
 		this.projectTitle = projectTitle;
@@ -75,19 +72,19 @@ public class PpmProjectInfo {
 		this.projectType = projectType;
 	}
 
-	public Integer getProjectNumber() {
+	public String getProjectNumber() {
 		return projectNumber;
 	}
 
-	public void setProjectNumber(Integer projectNumber) {
+	public void setProjectNumber(String projectNumber) {
 		this.projectNumber = projectNumber;
 	}
 
-	public Integer getProjectTitle() {
+	public String getProjectTitle() {
 		return projectTitle;
 	}
 
-	public void setProjectTitle(Integer projectTitle) {
+	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
 	}
 
@@ -123,19 +120,19 @@ public class PpmProjectInfo {
 		this.projectGate = projectGate;
 	}
 
-	public Date getProjectStartDate() {
+	public String getProjectStartDate() {
 		return projectStartDate;
 	}
 
-	public void setProjectStartDate(Date projectStartDate) {
+	public void setProjectStartDate(String projectStartDate) {
 		this.projectStartDate = projectStartDate;
 	}
 
-	public Date getProjectEndDate() {
+	public String getProjectEndDate() {
 		return projectEndDate;
 	}
 
-	public void setProjectEndDate(Date projectEndDate) {
+	public void setProjectEndDate(String projectEndDate) {
 		this.projectEndDate = projectEndDate;
 	}
 
